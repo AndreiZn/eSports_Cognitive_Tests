@@ -2,7 +2,7 @@ function [CFG] = RTD_config(CFG, test_idx)
 
 CFG.tests{test_idx}.long_name = 'Reaction_with_Decision';
 CFG.tests{test_idx}.expected_user_input = 'mouse';
-CFG.tests{test_idx}.num_trials = 30; % number of trials for the experiment
+CFG.tests{test_idx}.num_trials = 3; % number of trials for the experiment
 CFG.tests{test_idx}.time_display_min = 1;
 CFG.tests{test_idx}.time_display_max = 4;
 CFG.tests{test_idx}.radius_circle = 110*CFG.general.ratio_pixel;

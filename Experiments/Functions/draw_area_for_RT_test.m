@@ -19,14 +19,20 @@ B = [res_x_pix/2 - foc_x_pix/2, res_y_pix/2 + foc_y_pix/2];
 C = [res_x_pix/2 + foc_x_pix/2, res_y_pix/2 + foc_y_pix/2];
 D = [res_x_pix/2 + foc_x_pix/2, res_y_pix/2 - foc_y_pix/2];
 
-E = [0, 0];
-F = [0, res_y_pix];
-G = [res_x_pix, res_y_pix];
-H = [res_x_pix 0];
+delta = 0.5 * 110; %CFG.tests{test_idx}.radius_circle; - shift the border points E, F, G, H to ensure that the circle is fully displayed on the screen
 
-txt_shift = 15;
+E = [0 + delta, 0 + delta];
+F = [0 + delta, res_y_pix - delta];
+G = [res_x_pix - delta,  res_y_pix - delta];
+H = [res_x_pix - delta, 0 + delta];
+
+txt_shift = 20;
 scatter(A(1), A(2))
 hold on
+
+% screen area
+coor_screen = [[0,0]; [0,res_y_pix]; [res_x_pix, res_y_pix]; [res_x_pix,0]];  
+patch(coor_screen(:,1), coor_screen(:,2),'k')
 
 % focus area
 coor_foc = [A; B; C; D];  
@@ -53,21 +59,21 @@ coor_b = [E; A; D; H];
 patch(coor_b(:,1), coor_b(:,2),'g')
 [inPoints_b] = polygrid(coor_b(:,1), coor_b(:,2), 1);
 
-text(A(1)+txt_shift, A(2)+txt_shift, 'A')
+text(A(1)+txt_shift, A(2)+txt_shift, 'A','FontSize',20)
 scatter(B(1), B(2))
-text(B(1)+txt_shift, B(2)+txt_shift, 'B')
+text(B(1)+txt_shift, B(2)+txt_shift, 'B','FontSize',20)
 scatter(C(1), C(2))
-text(C(1)+txt_shift, C(2)+txt_shift, 'C')
+text(C(1)+txt_shift, C(2)+txt_shift, 'C','FontSize',20)
 scatter(D(1), D(2))
-text(D(1)+txt_shift, D(2)+txt_shift, 'D')
+text(D(1)+txt_shift, D(2)+txt_shift, 'D','FontSize',20)
 scatter(E(1), E(2))
-text(E(1)+txt_shift, E(2)+txt_shift, 'E')
+text(E(1)+txt_shift, E(2)+txt_shift, 'E','FontSize',20)
 scatter(F(1), F(2))
-text(F(1)+txt_shift, F(2)+txt_shift, 'F')
+text(F(1)+txt_shift, F(2)-2*txt_shift, 'F','FontSize',20)
 scatter(G(1), G(2))
-text(G(1)+txt_shift, G(2)+txt_shift, 'G')
+text(G(1)-2*txt_shift, G(2)-2*txt_shift, 'G','FontSize',20)
 scatter(H(1), H(2))
-text(H(1)+txt_shift, H(2)+txt_shift, 'H')
+text(H(1)-2*txt_shift, H(2)+txt_shift, 'H','FontSize',20)
 
 axis([0-txt_shift res_x_pix+txt_shift 0-txt_shift res_y_pix+txt_shift])
 

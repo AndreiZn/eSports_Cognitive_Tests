@@ -33,10 +33,12 @@ B = [res_x_pix/2 - foc_x_pix/2, res_y_pix/2 + foc_y_pix/2];
 C = [res_x_pix/2 + foc_x_pix/2, res_y_pix/2 + foc_y_pix/2];
 D = [res_x_pix/2 + foc_x_pix/2, res_y_pix/2 - foc_y_pix/2];
 
-E = [0, 0];
-F = [0, res_y_pix];
-G = [res_x_pix, res_y_pix];
-H = [res_x_pix 0];
+delta = 0.5 * CFG_test.radius_circle; % shift the border points E, F, G, H to ensure that the circle is fully displayed on the screen
+
+E = [0 + delta, 0 + delta];
+F = [0 + delta, res_y_pix - delta];
+G = [res_x_pix - delta,  res_y_pix - delta];
+H = [res_x_pix - delta, 0 + delta];
 
 % focus area
 coor_foc = [A; B; C; D];  
