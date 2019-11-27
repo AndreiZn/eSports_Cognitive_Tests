@@ -2,27 +2,27 @@ addpath(genpath(pwd));
 CFG = struct();
 DATA = struct();
 %% Test flags
-CFG.general.collect_data =  1;      % 0: Debug, 1: Data Collection
+CFG.general.collect_data =  0;      % 0: Debug, 1: Data Collection
 CFG.general.flags = ...
-    [1, ...    % 1_1. Simple Reaction Time (Mouse)
-    1, ...     % 1_2. Simple Reaction Time (Mouse, Random position of circles)
-    1, ...     % 2_1. Simple Reaction Time (Keyboard)
-    1, ...     % 2_2. Simple Reaction Time (Keyboard, Random position of circles)
-    1, ...     % 3_1. Reaction Time with Decision
-    1, ...     % 3_2. Reaction Time with Decision, Random position of circles
-    1, ...     % 4. Keys Reaction
-    1, ...     % 5. Keyboard-Mouse coordination
-    1, ...     % 6. Mouse Tracking
-    1, ...     % 7. Aiming
-    1, ...     % 8. Optimal Trajectory
-    1, ...     % 9. Visual Search with Time Limits
-    1, ...     % 10_1. Expanding Ball 1 (Target Constant, Speed Constant)
-    1, ...     % 10_2. Expanding Ball 2 (Target Constant, Speed Not Constant)
-    1, ...     % 10_3. Expanding Ball 3 (Target not constant, speed not constant)
-    1, ...     % 10_4. Expanding Ball 4 (Target beats, speed not constant)
-    1, ...     % 11. Memory Test
-    1, ...     % 12. Multi-object tracking
-    1];        % 13. Recoil
+    [1, ...    % 1. Simple Reaction Time (Mouse)
+    1, ...     % 2. Simple Reaction Time (Mouse, Random position of circles)
+    1, ...     % 3. Simple Reaction Time (Keyboard)
+    1, ...     % 4. Simple Reaction Time (Keyboard, Random position of circles)
+    1, ...     % 5. Reaction Time with Decision
+    1, ...     % 6. Reaction Time with Decision, Random position of circles
+    1, ...     % 7. Keys Reaction
+    1, ...     % 8. Keyboard-Mouse coordination
+    1, ...     % 9. Mouse Tracking
+    1, ...     % 10. Aiming
+    1, ...     % 11. Optimal Trajectory
+    1, ...     % 12. Visual Search with Time Limits
+    1, ...     % 13. Expanding Ball 1 (Target Constant, Speed Constant)
+    1, ...     % 14. Expanding Ball 2 (Target Constant, Speed Not Constant)
+    1, ...     % 15. Expanding Ball 3 (Target not constant, speed not constant)
+    1, ...     % 16. Expanding Ball 4 (Target beats, speed not constant)
+    1, ...     % 17. Memory Test
+    1, ...     % 18. Multi-object tracking
+    0];        % 19. Recoil
 short_names = {'RTM', 'RTM_rand', 'RTK', 'RTK_rand', 'RTD', 'RTD_rand', 'KR', ...
     'KMC', 'MT', 'AIM', 'OT', 'VS', 'EB1', 'EB2', 'EB3', 'EB4', 'MEM', 'MOT', 'REC'};
 if numel(short_names) ~= numel(CFG.general.flags)
@@ -49,6 +49,8 @@ else
     %% Login prompt and root folder selection
     [CFG] = Login_rootfolder_prompt(CFG);
     cd(CFG.general.root_folder)
+    %% Get physical size of the screen
+    [CFG] = Enter_screen_size(CFG);
     %% Create Data Folder
     [CFG] = Create_data_folder(CFG);
     %% PsychDefaultSetup + Keyboard, color and other setups

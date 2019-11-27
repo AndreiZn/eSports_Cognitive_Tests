@@ -20,7 +20,11 @@ Display_text(CFG_general, CFG_test.test_instructions(CFG_general.language, :));
 
 HideCursor;
 
-for trial_idx = 1:CFG_test.num_max_trial
+if CFG_test.rand_pos
+    [circle_coordinates] = Generate_random_coordinates_in_5_areas(CFG, test_idx);
+end
+
+for trial_idx = 1:CFG.tests{test_idx}.num_trials
     
     time_last_click = GetSecs;
     target_presented = 0;
@@ -35,8 +39,8 @@ for trial_idx = 1:CFG_test.num_max_trial
             object_x = CFG_general.centerXY(1,1);
             object_y = CFG_general.centerXY(1,2);
         else
-            object_x = CFG_general.centerXY(1,1) + (rand - 0.5) * (CFG_general.theRect(RectRight) / 1.1);
-            object_y = CFG_general.centerXY(1,2) + (rand - 0.5) * (CFG_general.theRect(RectBottom)/ 1.1);
+            object_x = circle_coordinates(trial_idx,1);
+            object_y = circle_coordinates(trial_idx,2);
         end
         
         DATA_test.target_pos(trial_idx, :) = [object_x, object_y];
@@ -68,7 +72,7 @@ for trial_idx = 1:CFG_test.num_max_trial
     end
 end
 
-DATA_test.num_trials = CFG_test.num_max_trial;
+DATA_test.num_trials = CFG_test.num_trials;
 DATA_test.color_sequence = c_color;
 DATA.tests{test_idx} = DATA_test;
 
