@@ -5,12 +5,12 @@ DATA = struct();
 CFG.general.collect_data =  0;      % 0: Debug, 1: Data Collection
 CFG.general.flags = ...
     [0, ...    % 1. Simple Reaction Time (Mouse)
-    1, ...     % 2. Simple Reaction Time (Mouse, Random position of circles)
+    0, ...     % 2. Simple Reaction Time (Mouse, Random position of circles)
     0, ...     % 3. Simple Reaction Time (Keyboard)
-    1, ...     % 4. Simple Reaction Time (Keyboard, Random position of circles)
+    0, ...     % 4. Simple Reaction Time (Keyboard, Random position of circles)
     0, ...     % 5. Reaction Time with Decision
-    1, ...     % 6. Reaction Time with Decision, Random position of circles
-    1, ...     % 7. Keys Reaction
+    0, ...     % 6. Reaction Time with Decision, Random position of circles
+    0, ...     % 7. Keys Reaction
     1, ...     % 8. Keyboard-Mouse coordination
     1, ...     % 9. Mouse Tracking
     1, ...     % 10. Aiming
