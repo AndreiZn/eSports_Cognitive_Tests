@@ -2,7 +2,7 @@ function [CFG] = MT_config(CFG, test_idx)
 
 CFG.tests{test_idx}.long_name = 'Mouse_Tracking';
 CFG.tests{test_idx}.expected_user_input = 'mouse';
-CFG.tests{test_idx}.experiment_time = 5;       % in seconds
+CFG.tests{test_idx}.experiment_time = 10; % in seconds
 CFG.tests{test_idx}.num_trials = 10;
 CFG.tests{test_idx}.time_step_target_changes_speed = 2.5;
 CFG.tests{test_idx}.speed_coef_x = 28 * CFG.general.ratio_pixel/CFG.general.ratio_frame_rate;

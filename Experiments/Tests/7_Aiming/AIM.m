@@ -46,25 +46,20 @@ SetMouse(centerX, centerY, win);
 x_target = centerX + (rand - 0.5) * (theRect(RectRight) / 1.2);
 y_target = centerY + (rand - 0.5) * (theRect(RectBottom)/ 1.2);
 
-% while 1
-%     Screen('FillOval',  win, CFG_general.red, frame_target_outer);
-%     Screen('FrameOval', win, CFG_general.black, frame_target_outer, 5);
-%     Screen('DrawLine',  win, CFG_general.white, x_mouse - length_cursor, y_mouse, x_mouse + length_cursor, y_mouse, 5);
-%     Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - length_cursor, x_mouse, y_mouse + length_cursor, 5);
-% %     [x_mouse, y_mouse, sensitivity_skip_factor, out] = sensitivity_adjustment_block(win, RightArrowKey, LeftArrowKey, spaceKey, theRect, centerXY, x_mouse, y_mouse, font_size, textcolor, sensitivity_skip_factor, CSGO_coef) ;
-% %     if out
-% %         break
-% %     end
-% end
-
 for trial_idx = 1:CFG_test.num_trials
     flag_button_clicked = 0;
+    
+    % set mouse to center of the screen
     SetMouse(centerX, centerY, win);
-    [x_mouse, y_mouse, buttons] = GetMouse(win);
-    Screen('DrawLine',  win, CFG_general.white, x_mouse - length_cursor, y_mouse, x_mouse + length_cursor, y_mouse, 5);
-    Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - length_cursor, x_mouse, y_mouse + length_cursor, 5);
-    Screen('Flip',win);
-    WaitSecs(0.5);
+
+    % Wait 0.5 seconds before the appearance of each circle
+    t_temp = GetSecs;
+    while GetSecs - t_temp < 0.5
+        [x_mouse, y_mouse, buttons] = GetMouse(win);
+        Screen('DrawLine',  win, CFG_general.white, x_mouse - length_cursor, y_mouse, x_mouse + length_cursor, y_mouse, 5);
+        Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - length_cursor, x_mouse, y_mouse + length_cursor, 5);
+        Screen('Flip',win);
+    end
     
     % generate circles at random pos
     x_target = centerX + (rand - 0.5) * (theRect(RectRight) / 1.2);
@@ -106,6 +101,10 @@ for trial_idx = 1:CFG_test.num_trials
                 time_end = GetSecs;
                 time_reaction = time_end - time_start;
                 flag_button_clicked = 1;
+                Screen('FillOval', win, CFG_general.green, frame_target_outer);
+                Screen('FrameOval', win, CFG_general.black, frame_target_outer, 5);
+                
+                Screen('Flip',win);
                 break;
             end
         end
@@ -140,7 +139,7 @@ for trial_idx = 1:CFG_test.num_trials
     DATA_test.mouse_trajectory{trial_idx, 1} = pos_mouse;
     DATA_test.target_pos(trial_idx, :) = pos_target;
     DATA_test.time_stamp{trial_idx, 1} = time_stamp;
-
+    
     WaitSecs(1);
 end
 

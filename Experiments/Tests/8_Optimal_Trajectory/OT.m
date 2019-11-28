@@ -71,11 +71,15 @@ for trial_idx = 1:CFG_test.num_trials
     
     % set mouse to center of the screen
     SetMouse(centerX, centerY, win);
-    [x_mouse, y_mouse, buttons] = GetMouse(win);
-    Screen('DrawLine',  win, CFG_general.white, x_mouse - length_cursor, y_mouse, x_mouse + length_cursor, y_mouse, 5);
-    Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - length_cursor, x_mouse, y_mouse + length_cursor, 5);
-    Screen('Flip',win);
-    WaitSecs(0.5);
+    
+    % Wait 0.5 seconds before the appearance of each circle
+    t_temp = GetSecs;
+    while GetSecs - t_temp < 0.5
+        [x_mouse, y_mouse, buttons] = GetMouse(win);
+        Screen('DrawLine',  win, CFG_general.white, x_mouse - length_cursor, y_mouse, x_mouse + length_cursor, y_mouse, 5);
+        Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - length_cursor, x_mouse, y_mouse + length_cursor, 5);
+        Screen('Flip',win);
+    end
     
     % draw the circles
     for i = 1:num_targets
