@@ -75,8 +75,13 @@ for trial_idx=1:CFG_test.num_max_trial
         CFG_general.centerXY(1,1) - floor(length(display_text) * CFG_general.font_size / 4), ...
         CFG_general.centerXY(1,2) - 40, CFG_general.textcolor);
     
+    % Display results
     average_kpm = 60*(trial_idx - 1)/(GetSecs - t_0);
-    Display_KPM(CFG_general, average_kpm, total_num_mistakes)
+    results = [average_kpm, total_num_mistakes];
+    results_description = {'Average keys per minute: ', 'Number of mistakes: '};
+    results_dimension = {' ', ' '};
+    position = 'upperleft';
+    Display_Results(CFG_general, results, results_description, results_dimension, position)
     time_Start = Screen('Flip', CFG_general.win);
     
     keyunpressed = 0; % key is lifted up (unpressed)
@@ -161,6 +166,10 @@ DATA_test.num_trials = CFG_test.num_max_trial;
 DATA.tests{test_idx} = DATA_test;
 
 Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
-Display_KPM(CFG_general, average_kpm, total_num_mistakes)
+results = [average_kpm, total_num_mistakes];
+results_description = {'Average keys per minute: ', 'Number of mistakes: '};
+results_dimension = {' ', ' '};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
 Screen('Flip', CFG_general.win);
-WaitSecs(5)
+WaitSecs(10)
