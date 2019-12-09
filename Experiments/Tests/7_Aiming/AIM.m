@@ -147,4 +147,11 @@ end
 DATA_test.num_trials = CFG_test.num_trials;
 DATA.tests{test_idx} = DATA_test;
 
-WaitSecs(0.3)
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+results = [1000*mean(DATA_test.time_reaction(:, 1))];
+results_description = {'Average reaction time: '};
+results_dimension = {'ms'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(10)

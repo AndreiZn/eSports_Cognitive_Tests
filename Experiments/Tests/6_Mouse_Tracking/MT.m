@@ -118,4 +118,11 @@ end
 DATA_test.num_trials = CFG_test.num_trials;
 DATA.tests{test_idx} = DATA_test;
 
-WaitSecs(0.3)
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+results = [mean(DATA_test.tracking_error(:, 1))];
+results_description = {'Average error: '};
+results_dimension = {'pix'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(10)

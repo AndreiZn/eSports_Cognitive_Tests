@@ -158,4 +158,13 @@ DATA_test.radius_circle = radius_circle;
 DATA_test.num_trials = CFG_test.num_trials;
 DATA.tests{test_idx} = DATA_test;
 
-WaitSecs(0.3)
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+cell_data = DATA_test.reaction_time_click(:, 1);
+mean_rt = mean(cellfun(@(x) mean(diff([0,x'])), cell_data));
+results = [1000*mean_rt];
+results_description = {'Average reaction time per each circle: '};
+results_dimension = {'ms'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(10)
