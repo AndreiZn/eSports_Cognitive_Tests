@@ -9,7 +9,10 @@ c_color = CFG_test.circle_color;
 best_rt = 0;
 average_rt = 0;
 last_rt = 0;
-
+results = [best_rt, average_rt, last_rt];
+results_description = {'Best reaction time: ', 'Average reaction time: ', 'Last reaction time: '};
+results_dimension = {'ms', 'ms', 'ms'};
+position = 'upperleft';
 Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
 Screen('Flip', CFG_general.win);
 
@@ -36,7 +39,7 @@ for trial_idx = 1:CFG.tests{test_idx}.num_trials
     while ~target_presented
         
         Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
-        Display_RT(CFG_general, best_rt, average_rt, last_rt)
+        Display_Results(CFG_general, results, results_description, results_dimension, position)
         Screen('Flip', CFG_general.win);
         
         if ~CFG_test.rand_pos
@@ -57,12 +60,8 @@ for trial_idx = 1:CFG.tests{test_idx}.num_trials
                 Screen('FillOval', CFG_general.win, CFG_general.blue, [object_x - r_c/2, object_y - r_c/2, object_x + r_c/2, object_y + r_c/2]);
             end
             Screen('FrameOval', CFG_general.win, CFG_general.black, [object_x - r_c/2, object_y - r_c/2, object_x + r_c/2, object_y + r_c/2], 5);
-            Display_RT(CFG_general, best_rt, average_rt, last_rt)
-            %Screen('Flip', CFG_general.win);
+            Display_Results(CFG_general, results, results_description, results_dimension, position)
             time_target_presented = Screen('Flip', CFG_general.win);
-            
-            %Display_RT(CFG_general, best_rt, average_rt)
-            %Screen('Flip', CFG_general.win);
             
             [time_click, whichButton] = Wait_user_input(CFG_general, CFG_test);
             target_presented = 1;
@@ -81,10 +80,15 @@ for trial_idx = 1:CFG.tests{test_idx}.num_trials
             
     end
     
+    % Display results
     best_rt = min(DATA_test.reaction_time(1:trial_idx, 1));
     average_rt = mean(DATA_test.reaction_time(1:trial_idx, 1));
     last_rt = DATA_test.reaction_time(trial_idx, 1);
-    Display_RT(CFG_general, best_rt, average_rt, last_rt)
+    results = [best_rt, average_rt, last_rt];
+    results_description = {'Best reaction time: ', 'Average reaction time: ', 'Last reaction time: '};
+    results_dimension = {'ms', 'ms', 'ms'};
+    position = 'upperleft';
+    Display_Results(CFG_general, results, results_description, results_dimension, position)
     Screen('Flip', CFG_general.win);
 end
 
@@ -92,4 +96,12 @@ DATA_test.num_trials = CFG_test.num_trials;
 DATA_test.color_sequence = c_color;
 DATA.tests{test_idx} = DATA_test;
 
-WaitSecs(0.1)
+% Display final results in the center of the screen
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+results = [best_rt, average_rt];
+results_description = {'Best reaction time: ', 'Average reaction time: '};
+results_dimension = {'ms', 'ms'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(10)

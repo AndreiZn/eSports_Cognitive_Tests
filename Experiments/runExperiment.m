@@ -2,7 +2,7 @@ addpath(genpath(pwd));
 CFG = struct();
 DATA = struct();
 %% Test flags
-CFG.general.collect_data =  1;      % 0: Debug, 1: Data Collection
+CFG.general.collect_data =  0;      % 0: Debug, 1: Data Collection
 CFG.general.flags = ...
     [1, ...    % 1. Simple Reaction Time (Mouse)
     1, ...     % 2. Simple Reaction Time (Mouse, Random position of circles)
