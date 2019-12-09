@@ -61,6 +61,8 @@ for i = 1:CFG_test.num_display_row
     sequence_correct_key = [sequence_correct_key; key_correst];
 end
 
+total_num_mistakes = 0;
+t_0 = GetSecs;
 for trial_idx=1:CFG_test.num_max_trial
     
     num_mistakes = 0;
@@ -72,6 +74,9 @@ for trial_idx=1:CFG_test.num_max_trial
     Screen('DrawText', CFG_general.win, display_text, ...
         CFG_general.centerXY(1,1) - floor(length(display_text) * CFG_general.font_size / 4), ...
         CFG_general.centerXY(1,2) - 40, CFG_general.textcolor);
+    
+    average_kpm = 60*(trial_idx - 1)/(GetSecs - t_0);
+    Display_KPM(CFG_general, average_kpm, total_num_mistakes)
     time_Start = Screen('Flip', CFG_general.win);
     
     keyunpressed = 0; % key is lifted up (unpressed)
@@ -94,6 +99,7 @@ for trial_idx=1:CFG_test.num_max_trial
                 return;
             elseif ~keyunpressed
                 num_mistakes = num_mistakes + 1;
+                total_num_mistakes = total_num_mistakes + 1;
                 keyunpressed = 1;
             end
         end
@@ -153,3 +159,8 @@ end
 
 DATA_test.num_trials = CFG_test.num_max_trial;
 DATA.tests{test_idx} = DATA_test;
+
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+Display_KPM(CFG_general, average_kpm, total_num_mistakes)
+Screen('Flip', CFG_general.win);
+WaitSecs(5)

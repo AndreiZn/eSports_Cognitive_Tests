@@ -10,7 +10,7 @@ CFG.general.flags = ...
     0, ...     % 4. Simple Reaction Time (Keyboard, Random position of circles)
     0, ...     % 5. Reaction Time with Decision
     0, ...     % 6. Reaction Time with Decision, Random position of circles
-    0, ...     % 7. Keys Reaction
+    1, ...     % 7. Keys Reaction
     0, ...     % 8. Keyboard-Mouse coordination
     0, ...     % 9. Mouse Tracking
     0, ...     % 10. Aiming
