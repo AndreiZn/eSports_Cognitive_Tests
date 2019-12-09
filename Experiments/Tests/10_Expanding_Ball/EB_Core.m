@@ -27,9 +27,14 @@ rtwait = CFG_test.rtwait;
 cursor_length = CFG_test.cursor_length;
 color = CFG_test.circle_color;
 target_color = CFG_test.target_color;
+
 best_error = 0;
-average_error = 0;
+average_abs_error = 0;
 last_error = 0;
+results = [best_error, average_abs_error, last_error];
+results_description = {'Best error: ', 'Average absolute error: ', 'Last error: '};
+results_dimension = {'pix', 'pix', 'pix'};
+position = 'upperleft';
 
 x_expand = centerX;
 y_expand = centerY;
@@ -68,7 +73,7 @@ while ~stop_experiment
     end
     
     if ~target_const
-        r_coef = 0.5 + rand(); 
+        r_coef = 0.5 + rand();
         radius_target = radius_target * r_coef;
     end
     
@@ -115,7 +120,7 @@ while ~stop_experiment
         Screen('DrawLine',  win, target_color, x_target - cursor_length, y_target, x_target + cursor_length, y_target, 5);
         Screen('DrawLine',  win, target_color, x_target, y_target - cursor_length, x_target, y_target + cursor_length, 5);
         Screen('DrawText',win,txt_time , centerXY(1) + 350,centerXY(2)-350,textcolor);
-        Display_EB_error(CFG_general, best_error, average_error, last_error)
+        Display_Results(CFG_general, results, results_description, results_dimension, position)
         Screen('Flip',win);
         
         time_out = delta_time > time_max;
@@ -148,17 +153,21 @@ while ~stop_experiment
     
     best_error_idx = dsearchn(DATA_test.error_radius(1:trial_idx, 1), 0);
     best_error = DATA_test.error_radius(best_error_idx, 1);
-    average_error = mean(DATA_test.error_radius(1:trial_idx, 1));
+    average_abs_error = mean(abs(DATA_test.error_radius(1:trial_idx, 1)));
     last_error = DATA_test.error_radius(trial_idx, 1);
-    Display_EB_error(CFG_general, best_error, average_error, last_error)
+    results = [best_error, average_abs_error, last_error];
+    results_description = {'Best error: ', 'Average absolute error: ', 'Last error: '};
+    results_dimension = {'pix', 'pix', 'pix'};
+    position = 'upperleft';
+    Display_Results(CFG_general, results, results_description, results_dimension, position)
     Screen('Flip', CFG_general.win);
     
     % determine whether the trial is completed
     if trial_idx < num_trials
         for i = 2:-1:1
-            Screen('FillRect', win, bgcolor);       
+            Screen('FillRect', win, bgcolor);
             Screen('DrawText',win,['Next trial begins after ' num2str(i) ' seconds.'] , centerXY(1) - 100,centerXY(2) - 40,textcolor);
-            Display_EB_error(CFG_general, best_error, average_error, last_error)
+            Display_Results(CFG_general, results, results_description, results_dimension, position)
             Screen('Flip',win);
             WaitSecs(1);
         end
@@ -168,5 +177,11 @@ while ~stop_experiment
 end
 
 DATA.tests{test_idx} = DATA_test;
-
-WaitSecs(0.3)
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+results = [best_error, average_abs_error];
+results_description = {'Best error: ', 'Average absolute error: '};
+results_dimension = {'pix', 'pix'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(5)
