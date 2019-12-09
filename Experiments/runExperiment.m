@@ -14,12 +14,12 @@ CFG.general.flags = ...
     0, ...     % 8. Keyboard-Mouse coordination
     0, ...     % 9. Mouse Tracking
     0, ...     % 10. Aiming
-    1, ...     % 11. Optimal Trajectory
-    1, ...     % 12. Visual Search with Time Limits
-    1, ...     % 13. Expanding Ball 1 (Target Constant, Speed Constant)
-    1, ...     % 14. Expanding Ball 2 (Target Constant, Speed Not Constant)
-    1, ...     % 15. Expanding Ball 3 (Target not constant, speed not constant)
-    1, ...     % 16. Expanding Ball 4 (Target beats, speed not constant)
+    0, ...     % 11. Optimal Trajectory
+    0, ...     % 12. Visual Search with Time Limits
+    0, ...     % 13. Expanding Ball 1 (Target Constant, Speed Constant)
+    0, ...     % 14. Expanding Ball 2 (Target Constant, Speed Not Constant)
+    0, ...     % 15. Expanding Ball 3 (Target not constant, speed not constant)
+    0, ...     % 16. Expanding Ball 4 (Target beats, speed not constant)
     1, ...     % 17. Memory Test
     1, ...     % 18. Multi-object tracking
     0];        % 19. Recoil

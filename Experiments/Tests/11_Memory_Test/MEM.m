@@ -195,4 +195,12 @@ end
 DATA_test.num_trials_per_level = CFG_test.num_trials_per_level;
 DATA.tests{test_idx} = DATA_test;
 
-WaitSecs(0.3)
+Screen('FillRect', CFG_general.win, CFG_general.bgcolor);
+mean_acc = mean(DATA_test.accuracy(:, 1));
+results = [100*mean_acc];
+results_description = {'Average accuracy: '};
+results_dimension = {'%'};
+position = 'center';
+Display_Results(CFG_general, results, results_description, results_dimension, position)
+Screen('Flip', CFG_general.win);
+WaitSecs(10)
