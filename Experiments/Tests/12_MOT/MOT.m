@@ -12,6 +12,7 @@ win = CFG_general.win;
 bgcolor = CFG_general.bgcolor;
 textcolor = CFG_general.textcolor;
 font_size = CFG_general.font_size;
+screenid = CFG_general.screenid; % New correction, Sergei
 
 num_min_target = CFG_test.num_min_target;
 num_max_target = CFG_test.num_max_target;
@@ -24,16 +25,18 @@ target_color = CFG_test.target_color;
 circle_color = CFG_test.circle_color;
 correct_circle_color = CFG_test.correct_circle_color;
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % start experiment
 % Show instructions and wait for mouse click/keyboard tap
 Display_text(CFG_general, CFG_test.test_instructions(CFG_general.language, :));
 
 % wait for a click
-[~, ~, ~, buttons] = GetClicks([],0,[]);
+[~, ~, ~, buttons] = GetClicks([screenid],0,[]); % New correction, Sergei
 % wait for button release
 while buttons(1)
-    [~, ~, buttons] = GetMouse;
+    [~, ~, buttons] = GetMouse(screenid); % New correction, Sergei
     WaitSecs('YieldSecs', 0.01);
 end
 
@@ -198,7 +201,7 @@ while ~stop_experiment
     count_objects_clicked = 0;
     objects_click_label = zeros(num_object,1);
     while count_objects_clicked < num_target 	% wait till enough circles are clicked
-        [clicks, x, y, whichButton] = GetClicks([],0,[]);
+        [clicks, x, y, whichButton] = GetClicks([screenid],0,[]); % New correction, Sergei
         for i = 1:num_object
             object_center_x = objects_x(i) + radius_circle / 2;
             object_center_y = objects_y(i) + radius_circle / 2;

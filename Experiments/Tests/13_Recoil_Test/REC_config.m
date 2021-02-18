@@ -3,8 +3,8 @@ function [CFG] = REC_config(CFG, test_idx)
 CFG.tests{test_idx}.long_name = 'RecoilControl_Test';
 CFG.tests{test_idx}.expected_user_input = 'keyboard';
 % Experimental parameters
-CFG.tests{test_idx}.im = imread([CFG.general.root_folder, 'Auxilary_files\target2.png']);
-bullet_trajectory = load([CFG.general.root_folder, 'Auxilary_files\AK47_30blts_spray_trajectory.mat']);
+CFG.tests{test_idx}.im = imread([CFG.general.root_folder, 'Experiments\Auxilary_files\target2.png']);
+bullet_trajectory = load([CFG.general.root_folder, 'Experiments\Auxilary_files\AK47_30blts_spray_trajectory.mat']);
 CFG.tests{test_idx}.num_repetitions_train = 1;
 CFG.tests{test_idx}.num_repetitions_test = 5;
 CFG.tests{test_idx}.shots_to_kill_array = [1, 3, 5, 7, 10, 15, 20, 30];

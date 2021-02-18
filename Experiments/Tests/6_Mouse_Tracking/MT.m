@@ -10,11 +10,14 @@ centerY = CFG_general.centerXY(1,2);
 win = CFG_general.win;
 cursor_length = CFG_test.cursor_length;
 target_radius = CFG_test.target_radius;
+screenid = CFG_general.screenid;% New corrections, Sergei
 
 % Adjust sensitivity
 ShowCursor;
 
-[x_mouse,y_mouse,~] = GetMouse(win);
+SetMouse(centerX, centerY, screenid);% New corrections, Sergei
+
+[x_mouse,y_mouse,~] = GetMouse(screenid);
 while 1
     
     [x_mouse, y_mouse, CFG, out] = Sensitivity_adjustment_block(x_mouse, y_mouse, CFG);
@@ -22,6 +25,7 @@ while 1
         break
     end
 end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % start experiment
@@ -40,7 +44,10 @@ for trial_idx = 1:CFG_test.num_trials
         WaitSecs(1);
     end
     
-    SetMouse(centerX, centerY, win);
+    disp(['6: ' num2str(CFG.general.win)]);
+    disp(CFG_general.win);
+    
+    SetMouse(centerX, centerY, screenid);% New corrections, Sergei
     
     x_target = centerX; y_target = centerY;
     pos_target = [x_target y_target];
@@ -48,13 +55,13 @@ for trial_idx = 1:CFG_test.num_trials
     v_target_x = (rand - 0.5) * 2 * CFG_test.speed_coef_x;
     v_target_y = (rand - 0.5) * 2 * CFG_test.speed_coef_y;
     
-    [x, y, buttons] = GetMouse(win);
+    [x, y, buttons] = GetMouse(screenid);% New corrections, Sergei
     pos_mouse = [x y];
     
     timeStart = GetSecs;
     timeLim = timeStart;
     time_stamp = now;
-    [x_mouse, y_mouse, ~] = GetMouse(win);
+    [x_mouse, y_mouse, ~] = GetMouse(screenid);% New corrections, Sergei
     while GetSecs < (timeStart + CFG_test.experiment_time)
         if (GetSecs - timeLim) > CFG_test.time_step_target_changes_speed
             timeLim = GetSecs;
@@ -87,7 +94,7 @@ for trial_idx = 1:CFG_test.num_trials
         
         
         [~, ~] = Apply_mouse_sensitivity(x_mouse, y_mouse, CFG);
-        [x_mouse, y_mouse, buttons] = GetMouse(win);
+        [x_mouse, y_mouse, buttons] = GetMouse(screenid);% New corrections, Sergei
         Screen('DrawLine',  win, CFG_general.white, x_mouse - cursor_length, y_mouse, x_mouse + cursor_length, y_mouse, 5);
         Screen('DrawLine',  win, CFG_general.white, x_mouse, y_mouse - cursor_length, x_mouse, y_mouse + cursor_length, 5);
         Screen('Flip',win);

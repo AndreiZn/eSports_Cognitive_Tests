@@ -1,6 +1,11 @@
 addpath(genpath(pwd));
 CFG = struct();
 DATA = struct();
+
+% New corrections, Sergei
+subject_screen_flag = 1 ; % 0 - for operator laptop or no subject screen,
+%1 - for subject screen #1
+
 %% Test flags
 CFG.general.collect_data =  1;      % 0: Debug, 1: Data Collection
 CFG.general.flags = ...
@@ -58,7 +63,7 @@ else
     %% DATA variable set-up
     [DATA] = DATA_var_setup(CFG, DATA);
     %% Open Window, text font
-    [CFG] = Open_window(CFG);
+    [CFG] = Open_window(CFG,subject_screen_flag);% New corrections, Sergei
     %% Run Tests
     [CFG, DATA] = CompleteTests(CFG, DATA);
     %% Save Data

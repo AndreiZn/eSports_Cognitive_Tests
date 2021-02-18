@@ -13,6 +13,8 @@ grid_dim = CFG_test.grid_dim;
 line_width = CFG_test.line_width;
 target_color = CFG_test.target_color;
 grid_color = CFG_test.grid_color;
+screenid = CFG_general.screenid;% New correction, Sergei
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % start experiment
@@ -22,10 +24,10 @@ Display_text(CFG_general, CFG_test.test_instructions(CFG_general.language, :));
 HideCursor;
 
 % wait for a click
-[~, ~, ~, buttons] = GetClicks([],0,[]);
+[~, ~, ~, buttons] = GetClicks([screenid],0,[]);% New correction, Sergei
 % wait for button release
 while buttons(1)
-    [~, ~, buttons] = GetMouse;
+    [~, ~, buttons] = GetMouse(screenid);% New correction, Sergei
     WaitSecs('YieldSecs', 0.01);
 end
 
@@ -127,7 +129,7 @@ for current_num_target = CFG_test.num_min_target:CFG_test.num_max_target
             
             Close_screen_if_escKey_pressed(CFG_general.escKey)
             
-            [clicks, x, y, whichButton] = GetClicks([],0,[]);
+            [clicks, x, y, whichButton] = GetClicks([screenid],0,[]);% New correction, Sergei
             
             for i = -lim:lim
                 for j = -lim:lim
