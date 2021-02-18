@@ -21,6 +21,7 @@ for test_idx = CFG.general.order_of_tests
         % Run test test_name
         [CFG, DATA] = feval(test_name, CFG, DATA, test_idx);
         
+        disp(['4: ' num2str(CFG.general.win)]);
         % Save data online and end current test
         Save_intermiediate_results(CFG, DATA);
         [CFG] = End_of_experiment(CFG);
