@@ -1,5 +1,6 @@
 function [x_mouse, y_mouse, CFG, out] = Sensitivity_adjustment_block(x_mouse, y_mouse, CFG) 
 
+
 win = CFG.general.win;
 theRect = CFG.general.theRect;
 CSGO_coef = CFG.general.CSGO_coef;

@@ -1,9 +1,21 @@
-function [CFG] = Open_window(CFG)
+function [CFG] = Open_window(CFG, subject_screen_flag)
+% With new corrections, Sergei
+if nargin < 2
+    subject_screen_flag = 0;
+end
 
-CFG.general.screenid = max(Screen('Screens'));
+screens_list = Screen('Screens'); % New corrections started, Sergei
+% if there is only one screen, that subject_screen_flag should be 0
+if length(screens_list) < 2
+    subject_screen_flag = 0;
+end
+
+CFG.general.screenid = screens_list(end - subject_screen_flag); % New corrections ended, Sergei
+
 [CFG.general.win, ~] = Screen('Openwindow', CFG.general.screenid, 0.5);
+
 [~, CFG.general.theRect] = Screen('OpenOffscreenWindow', CFG.general.win, 0);
-CFG.general.frame_rate = round(FrameRate());
+CFG.general.frame_rate = round(FrameRate(CFG.general.screenid));
 CFG.general.ratio_pixel = CFG.general.theRect(RectBottom) / CFG.general.default_resolution(2);
 CFG.general.ratio_frame_rate = CFG.general.frame_rate / CFG.general.default_frame_rate;
 CFG.general.font_size = 24 * CFG.general.ratio_pixel;
